@@ -52,25 +52,26 @@ create table if not exists Taco_Order
     id
     bigint
     primary
-    key,
-    deliveryName
+    key
+    auto_increment,
+    name
     varchar
 (
     50
 ) not null,
-    deliveryStreet varchar
+    street varchar
 (
     50
 ) not null,
-    deliveryCity varchar
+    city varchar
 (
     50
 ) not null,
-    deliveryState varchar
+    state varchar
 (
     2
 ) not null,
-    deliveryZip varchar
+    zip varchar
 (
     10
 ) not null,

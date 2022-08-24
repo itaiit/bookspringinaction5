@@ -4,6 +4,7 @@ package io.itaiit.data;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.itaiit.domain.Order;
 import io.itaiit.domain.Taco;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -14,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+@Slf4j
 @Repository
 public class JdbcOrderRepository implements OrderRepository {
 
@@ -53,7 +54,8 @@ public class JdbcOrderRepository implements OrderRepository {
         @SuppressWarnings("unchecked")
         Map<String, Object> values =
                 objectMapper.convertValue(order, Map.class);
-        values.put("placedAt", order.getPlacedAt());
+        log.info("saveOrderDetails values: " + values); // saveOrderDetails values: {id=null, placedAt=1661339812593, tacos=[{id=8, createdAt=1661339781632, name=myfavorite003, ingredients=[FLTO, CARN, CHED, LETC, SRCR]}], name=myfavorite003, street=green street, city=newyork, state=01, zip=5155, ccNumber=4725, ccExpiration=444, ccCVV=突然的}
+        values.put("placedAt", order.getPlacedAt()); // objectMapper会将Date转成long的格式，需要手动设置一下
 
         long orderId =
                 orderInserter
