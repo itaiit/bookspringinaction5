@@ -13,7 +13,7 @@
 <img th:src="@{/images/TacoCloud.png}"/>
 
 <!-- tag::formTag[] -->
-<form method="POST" th:object="${design}">
+<form method="POST" th:action="@{/design}" th:object="${design}">
     <!-- end::all[] -->
 
     <span class="validationError"
@@ -77,7 +77,7 @@
               th:errors="*{name}">Name Error</span>
         <!-- tag::all[] -->
         <br/>
-
+        <!--        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>-->
         <button>Submit your taco</button>
     </div>
     <!-- tag::closeFormTag[] -->

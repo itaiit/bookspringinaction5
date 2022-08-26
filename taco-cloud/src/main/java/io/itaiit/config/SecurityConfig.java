@@ -41,9 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/design", true) // 这个地方要为true，否则的话登陆成功之后会跳转到访问登录界面前的界面
                 .and()
                 .logout() // 会默认添加一个处理/logout请求的过滤器
-                .logoutSuccessUrl("/")
-                .and()
-                .csrf().ignoringAntMatchers("/design/**", "/orders/**");
+                .logoutSuccessUrl("/");
+//                .and()
+//                .csrf().ignoringAntMatchers("/design/**", "/orders/**");
     }
 
     @Bean
