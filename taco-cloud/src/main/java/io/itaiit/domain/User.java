@@ -1,5 +1,6 @@
 package io.itaiit.domain;
 
+import lombok.Data;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,6 +19,7 @@ import java.util.Collection;
  */
 @Entity
 @ToString
+@Data
 public class User implements UserDetails {
 
     @Id

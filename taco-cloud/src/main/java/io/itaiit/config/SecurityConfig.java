@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/design", "/orders")
+                .antMatchers("/design/**", "/orders/**")
 //                .hasRole("USER") // 实际上寻找的是ROLE_USER授权角色，ROLE_前缀会自动插入
                 .hasAuthority("USER")
                 .antMatchers("/", "/**")
@@ -38,10 +38,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/design")
+                .defaultSuccessUrl("/design", true) // 这个地方要为true，否则的话登陆成功之后会跳转到访问登录界面前的界面
                 .and()
                 .logout() // 会默认添加一个处理/logout请求的过滤器
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/")
+                .and()
+                .csrf().ignoringAntMatchers("/design/**", "/orders/**");
     }
 
     @Bean

@@ -16,6 +16,8 @@ public class Order {
 
   private Date placedAt;
 
+  private User user;
+
   private List<Taco> tacos = new ArrayList<>();
 
   //end::allButValidation[]

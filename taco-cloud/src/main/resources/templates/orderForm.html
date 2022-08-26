@@ -21,7 +21,7 @@
         </span>
     </div>
 
-    <h3>Deliver my taco masterpieces to...</h3>
+    <h3>Deliver my taco <span th:text="*{name}"></span> masterpieces to...</h3>
     <label for="name">Name: </label>
     <input type="text" th:field="*{name}"/>
     <!-- end::allButValidation[] -->
