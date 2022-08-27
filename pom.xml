@@ -14,7 +14,12 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>taco-cloud</module>
+        <module>taco-cloudpart1</module>
+        <module>tacocloud-api</module>
+        <module>tacocloud-domain</module>
+        <module>tacocloud-data</module>
+        <module>tacocloud</module>
+        <module>tacocloud-security</module>
     </modules>
 
     <properties>
