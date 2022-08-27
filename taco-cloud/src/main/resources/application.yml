@@ -6,4 +6,11 @@ spring:
     password: root
   sql:
     init:
-      mode: always
+      mode: never
+
+logging:
+  level:
+    org:
+      springframework:
+        security: debug
+    root: info

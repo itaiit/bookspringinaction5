@@ -7,10 +7,13 @@ import io.itaiit.domain.Taco;
 import io.itaiit.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Types;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +27,8 @@ public class JdbcOrderRepository implements OrderRepository {
     private SimpleJdbcInsert orderTacoInserter;
     private ObjectMapper objectMapper;
 
+    private JdbcTemplate jdbcTemplate;
+
     @Autowired
     public JdbcOrderRepository(JdbcTemplate jdbc) {
         this.orderInserter = new SimpleJdbcInsert(jdbc)
@@ -34,6 +39,9 @@ public class JdbcOrderRepository implements OrderRepository {
                 .withTableName("Taco_Order_Tacos");
 
         this.objectMapper = new ObjectMapper();
+
+        this.jdbcTemplate = jdbc;
+
     }
 // end::core[]
 
@@ -49,6 +57,17 @@ public class JdbcOrderRepository implements OrderRepository {
         }
 
         return order;
+    }
+
+    @Override
+    public List<Order> findByUserOrderByPlaceAtDesc(User user) {
+        String username = user.getUsername();
+        List<Order> orders = jdbcTemplate.query(
+                new PreparedStatementCreatorFactory("select * from Taco_Order where username=?", Types.VARCHAR)
+                        .newPreparedStatementCreator(new Object[]{username}),
+                new BeanPropertyRowMapper<>(Order.class)
+        );
+        return orders;
     }
 
     private long saveOrderDetails(Order order) {

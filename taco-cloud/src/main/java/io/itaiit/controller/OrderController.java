@@ -5,9 +5,13 @@ import io.itaiit.domain.Order;
 import io.itaiit.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+
+import java.util.List;
 
 /**
  * @author itaiit
@@ -46,4 +50,12 @@ public class OrderController {
 
         return "redirect:/";
     }
+
+    @GetMapping
+    public String ordersForUser(@AuthenticationPrincipal User user, Model model) {
+        List<Order> orders = orderRepository.findByUserOrderByPlaceAtDesc(user);
+        model.addAttribute("orders", orders);
+        return "orderList";
+    }
+
 }
