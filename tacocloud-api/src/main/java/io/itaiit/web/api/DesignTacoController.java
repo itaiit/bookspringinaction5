@@ -3,10 +3,11 @@ package io.itaiit.web.api;
 
 import io.itaiit.data.TacoRepository;
 import io.itaiit.domain.Taco;
+import io.itaiit.web.api.resource.TacoResource;
+import io.itaiit.web.api.resource.TacoResourceAssembler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
@@ -32,9 +33,10 @@ public class DesignTacoController {
   }
 
   @GetMapping("/recent")
-  public CollectionModel<EntityModel<Taco>> recentTacos() {                 //<3>
+  public CollectionModel<TacoResource> recentTacos() {                 //<3>
     List<Taco> all = tacoRepo.findAll();
-    CollectionModel<EntityModel<Taco>> wrap = CollectionModel.wrap(all);
+    CollectionModel<TacoResource> tacoResources = new TacoResourceAssembler().toCollectionModel(all);
+//    CollectionModel<EntityModel<Taco>> wrap = CollectionModel.wrap(all);
 //    wrap.add(Link.of("http://localhost:8080/design/recent", "recents"));
 
 //    wrap.add(
@@ -42,13 +44,13 @@ public class DesignTacoController {
 //                    .slash("recent")
 //                    .withRel("recents")
 //    );
-    wrap.add(
+    tacoResources.add(
             WebMvcLinkBuilder.linkTo(
                     WebMvcLinkBuilder.methodOn(DesignTacoController.class).recentTacos()
             ).withRel("recents")
     );
 
-    return wrap;
+    return tacoResources;
   }
 
   @PostMapping(consumes = "application/json")

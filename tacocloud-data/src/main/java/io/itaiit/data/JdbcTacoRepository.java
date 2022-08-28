@@ -1,5 +1,6 @@
 package io.itaiit.data;
 
+import io.itaiit.domain.Ingredient;
 import io.itaiit.domain.Taco;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -31,8 +32,8 @@ public class JdbcTacoRepository implements TacoRepository {
     public Taco save(Taco taco) {
         long tacoId = saveTacoInfo(taco);
         taco.setId(tacoId);
-        for (String ingredient : taco.getIngredients()) {
-            saveIngredientToTaco(ingredient, tacoId);
+        for (Ingredient ingredient : taco.getIngredients()) {
+            saveIngredientToTaco(ingredient.getId(), tacoId);
         }
 
         return taco;

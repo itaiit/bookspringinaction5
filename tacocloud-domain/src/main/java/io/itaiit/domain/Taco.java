@@ -15,6 +15,6 @@ public class Taco {
 
     private Date createdAt;
     private String name;
-    private List<String> ingredients;
+    private List<Ingredient> ingredients;
 
 }
