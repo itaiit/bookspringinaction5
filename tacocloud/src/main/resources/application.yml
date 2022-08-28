@@ -9,6 +9,9 @@ spring:
   sql:
     init:
       mode: never
+  data:
+    rest:
+      base-path: /api # 设置spring data生成的rest API的请求前缀
 logging:
   level:
     org:

@@ -2,6 +2,7 @@ package io.itaiit.domain;
 
 import lombok.Data;
 import lombok.ToString;
+import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +21,7 @@ import java.util.Collection;
 @Entity
 @ToString
 @Data
+@RestResource(path = "users", rel = "users")
 public class User implements UserDetails {
 
     @Id
