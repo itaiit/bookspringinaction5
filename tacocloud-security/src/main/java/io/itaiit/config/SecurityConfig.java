@@ -3,6 +3,7 @@ package io.itaiit.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -29,9 +30,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .antMatchers("/design/**", "/orders/**")
 //                .hasRole("USER") // 实际上寻找的是ROLE_USER授权角色，ROLE_前缀会自动插入
-                .hasAuthority("USER")
+//                .hasAuthority("USER")
+                .permitAll()
                 .antMatchers("/", "/**")
                 .permitAll()
                 .and()
@@ -40,9 +43,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/design", true) // 这个地方要为true，否则的话登陆成功之后会跳转到访问登录界面前的界面
                 .and()
                 .logout() // 会默认添加一个处理/logout请求的过滤器
-                .logoutSuccessUrl("/");
-//                .and()
-//                .csrf().ignoringAntMatchers("/design/**", "/orders/**");
+                .logoutSuccessUrl("/")
+
+                .and()
+                .csrf().ignoringAntMatchers("/design/**", "/orders/**");
     }
 
     @Bean

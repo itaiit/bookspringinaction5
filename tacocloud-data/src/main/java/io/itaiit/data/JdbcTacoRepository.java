@@ -40,7 +40,7 @@ public class JdbcTacoRepository implements TacoRepository {
 
     @Override
     public List<Taco> findAll() {
-        List<Taco> tacos = jdbc.query("select * from taco order by createAt desc",
+        List<Taco> tacos = jdbc.query("select * from Taco order by createdAt desc",
                 new BeanPropertyRowMapper<>(Taco.class));
 
         return tacos;
@@ -49,7 +49,7 @@ public class JdbcTacoRepository implements TacoRepository {
     @Override
     public Optional<Taco> findById(Long id) {
 
-        Taco taco = jdbc.queryForObject("select * from taco where id=?",
+        Taco taco = jdbc.queryForObject("select * from Taco where id=?",
                 new BeanPropertyRowMapper<>(Taco.class),
                 id);
 
