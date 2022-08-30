@@ -20,6 +20,7 @@
         <module>tacocloud-data</module>
         <module>tacocloud</module>
         <module>tacocloud-security</module>
+        <module>tacocloud-restclient</module>
     </modules>
 
     <properties>

@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>tacocloud</artifactId>
+    <artifactId>tacocloud-restclient</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -20,27 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>org.example</groupId>
-            <artifactId>tacocloud-data</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>tacocloud-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
             <artifactId>tacocloud-domain</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>tacocloud-security</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>tacocloud-restclient</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
