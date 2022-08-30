@@ -1,6 +1,7 @@
 package io.itaiit.domain;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
  */
 @Data
 @Entity
+@ToString
 public class Ingredient {
     @Id
     private String id;

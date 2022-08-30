@@ -2,11 +2,10 @@ package io.itaiit.controller;
 
 import io.itaiit.domain.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
 
 /**
  * @author itaiit
@@ -26,6 +25,21 @@ public class MyRestController {
                 id
         );
         return ingredient;
+    }
+
+    /**
+     * 创建一个新的Ingredient
+     *
+     * @param ingredient
+     * @return 新创建的Ingredient的资源链接："http://localhost:8080/api/ingredients/np01"
+     */
+    @PostMapping("ingredient")
+    public URI createIngredient(@RequestBody Ingredient ingredient) {
+        URI uri = restTemplate.postForLocation(
+                "http://localhost:8080/api/ingredients",
+                ingredient
+        );
+        return uri;
     }
 
 }
