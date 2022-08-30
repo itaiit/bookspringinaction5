@@ -2,6 +2,8 @@ package io.itaiit.controller;
 
 import io.itaiit.domain.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.client.Traverson;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -35,8 +37,11 @@ public class MyRestController {
      */
     @PostMapping("ingredient")
     public URI createIngredient(@RequestBody Ingredient ingredient) {
+        Traverson traverson = new Traverson(URI.create("http://localhost:8080/api"), MediaTypes.HAL_JSON);
+        String href = traverson.follow("ingredients").asLink().getHref();
         URI uri = restTemplate.postForLocation(
-                "http://localhost:8080/api/ingredients",
+//                "http://localhost:8080/api/ingredients",
+                href,
                 ingredient
         );
         return uri;
