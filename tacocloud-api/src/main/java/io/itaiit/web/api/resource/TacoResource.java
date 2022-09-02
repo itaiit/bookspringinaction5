@@ -1,13 +1,12 @@
 package io.itaiit.web.api.resource;
 
-import io.itaiit.domain.Ingredient;
 import io.itaiit.domain.Taco;
 import lombok.Getter;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author itaiit
@@ -19,11 +18,12 @@ public class TacoResource extends RepresentationModel<TacoResource> {
 
     private Date createdAt;
     private String name;
-    private List<Ingredient> ingredients;
+    private CollectionModel<IngredientResource> ingredients;
 
     public TacoResource(Taco taco) {
         this.createdAt = taco.getCreatedAt();
         this.name = taco.getName();
-        this.ingredients = taco.getIngredients();
+        IngredientResourceAssembler resourceAssembler = new IngredientResourceAssembler();
+        this.ingredients = resourceAssembler.toCollectionModel(taco.getIngredients());
     }
 }

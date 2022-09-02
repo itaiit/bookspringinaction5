@@ -12,6 +12,12 @@ spring:
   data:
     rest:
       base-path: /api # 设置spring data生成的rest API的请求前缀
+  jpa:
+    database: mysql
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 logging:
   level:
     org:

@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @Slf4j
 @RestController("restDesignTacoController")
-@RequestMapping(path = "/design",                      // <1>
+@RequestMapping(path = "/hateoas/design",                      // <1>
         produces = "application/json")
 @CrossOrigin(origins = "*")        // <2>
 public class DesignTacoController {
@@ -34,7 +34,7 @@ public class DesignTacoController {
 
   @GetMapping("/recent")
   public CollectionModel<TacoResource> recentTacos() {                 //<3>
-    List<Taco> all = tacoRepo.findAll();
+    List<Taco> all = (List<Taco>) tacoRepo.findAll();
     CollectionModel<TacoResource> tacoResources = new TacoResourceAssembler().toCollectionModel(all);
 //    CollectionModel<EntityModel<Taco>> wrap = CollectionModel.wrap(all);
 //    wrap.add(Link.of("http://localhost:8080/design/recent", "recents"));
