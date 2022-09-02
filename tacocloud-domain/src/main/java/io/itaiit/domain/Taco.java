@@ -27,5 +27,4 @@ public class Taco {
             inverseJoinColumns = @JoinColumn(name = "ingredient", referencedColumnName = "id")
     )
     private List<Ingredient> ingredients;
-
 }

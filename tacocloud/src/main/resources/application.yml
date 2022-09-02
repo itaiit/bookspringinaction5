@@ -24,3 +24,7 @@ logging:
       springframework:
         security: debug
     root: info
+
+taco:
+  page: 0
+  size: 4

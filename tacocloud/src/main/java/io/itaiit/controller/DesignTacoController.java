@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Controller
-@RequestMapping("design")
+@RequestMapping(value = "design")
 @SessionAttributes("order")
 public class DesignTacoController {
 
