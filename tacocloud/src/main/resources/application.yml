@@ -18,11 +18,21 @@ spring:
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  rabbitmq:
+    host: 192.168.61.130
+    port: 5672
+    username: itaiit-rabbitmq
+    password: admin
+    template:
+      exchange: tacocloud.orders
+      routing-key: kitchens.central
+
 logging:
   level:
     org:
       springframework:
         security: debug
+        data: debug
     root: info
 
 taco:

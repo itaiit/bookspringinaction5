@@ -43,9 +43,6 @@ public class JdbcOrderRepository implements OrderRepository {
         this.jdbcTemplate = jdbc;
 
     }
-// end::core[]
-
-    // tag::save[]
     @Override
     public Order save(Order order) {
         order.setPlacedAt(new Date());

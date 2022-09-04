@@ -1,5 +1,6 @@
 package io.itaiit.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.data.rest.core.annotation.RestResource;
@@ -7,10 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -19,6 +17,7 @@ import java.util.Collection;
  * @date 2022/8/25 23:38
  */
 @Entity
+@Table(name = "user")
 @ToString
 @Data
 @RestResource(path = "users", rel = "users")
@@ -52,6 +51,7 @@ public class User implements UserDetails {
 
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority("USER"));

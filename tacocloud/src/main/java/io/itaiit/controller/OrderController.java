@@ -3,7 +3,9 @@ package io.itaiit.controller;
 import io.itaiit.data.OrderRepository;
 import io.itaiit.domain.Order;
 import io.itaiit.domain.User;
+import io.itaiit.message.OrderMessagingService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,9 @@ public class OrderController {
 
     private final OrderRepository orderRepository;
 
+    @Autowired
+    private OrderMessagingService orderMessagingService;
+
     public OrderController(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
@@ -44,6 +49,8 @@ public class OrderController {
     @PostMapping
     public String processOrder(Order order, SessionStatus sessionStatus) {
         log.info("Order submitted: " + order);
+
+        orderMessagingService.sendOrder(order);
 
         orderRepository.save(order);
         sessionStatus.setComplete();
