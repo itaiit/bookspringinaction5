@@ -17,7 +17,7 @@ import java.util.Optional;
  * @date 2022/9/2 12:12
  */
 @RestController
-@RequestMapping(value = "/hateoas/ingredient", produces = "application/json")
+@RequestMapping(value = "/ingredient", produces = "application/json")
 public class IngredientApiController {
     @Autowired
     private IngredientRepository ingredientRepository;

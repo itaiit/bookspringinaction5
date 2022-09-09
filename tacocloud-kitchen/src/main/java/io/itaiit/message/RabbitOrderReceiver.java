@@ -4,6 +4,7 @@ import io.itaiit.domain.Order;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 
 /**
@@ -24,6 +25,8 @@ public class RabbitOrderReceiver {
     public Order receiveOrder() {
 //        Message receive = rabbitTemplate.receive("tacocloud.order");
 //        return (Order) messageConverter.fromMessage(receive);
-        return (Order) rabbitTemplate.receiveAndConvert("tacocloud.order");
+        return rabbitTemplate.receiveAndConvert("tacocloud.order",
+                new ParameterizedTypeReference<Order>() {
+                });
     }
 }
