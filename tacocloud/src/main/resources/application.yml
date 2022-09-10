@@ -26,6 +26,8 @@ spring:
     template:
       exchange: tacocloud.orders
       routing-key: kitchens.central
+  profiles:
+    active: webservlet
 
 logging:
   level:
@@ -38,3 +40,17 @@ logging:
 taco:
   page: 0
   size: 4
+
+---
+spring:
+  config:
+    activate:
+      on-profile: webservlet
+
+---
+spring:
+  config:
+    activate:
+      on-profile: webflux
+  main:
+    allow-bean-definition-overriding: true
