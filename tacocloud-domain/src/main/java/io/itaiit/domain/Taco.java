@@ -21,7 +21,7 @@ public class Taco {
 
     private Date createdAt;
     private String name;
-    @ManyToMany // 默认的连接表为taco_ingredient
+    @ManyToMany(fetch = FetchType.EAGER) // 默认的连接表为taco_ingredient
     @JoinTable(
             joinColumns = @JoinColumn(name = "taco", referencedColumnName = "id"), // owning side
             inverseJoinColumns = @JoinColumn(name = "ingredient", referencedColumnName = "id")

@@ -27,7 +27,7 @@ spring:
       exchange: tacocloud.orders
       routing-key: kitchens.central
   profiles:
-    active: webservlet
+    active: webflux
 
 logging:
   level:
