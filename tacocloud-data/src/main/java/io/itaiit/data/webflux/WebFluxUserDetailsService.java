@@ -24,8 +24,8 @@ public class WebFluxUserDetailsService implements ReactiveUserDetailsService {
     @Override
     public Mono<UserDetails> findByUsername(String username) {
         log.info("webflux login username: " + username);
-        User byUsername = userRepository.findByUsername(username);
+        Mono<User> byUsername = userRepository.findByUsername(username);
 
-        return Mono.just(byUsername);
+        return Mono.from(byUsername);
     }
 }

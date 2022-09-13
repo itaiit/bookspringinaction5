@@ -131,3 +131,65 @@ public class Taco {
 
 当创建完订单之后，访问：`http://localhost:8080/orders/receive`，可以获取队列中的order数据；
 
+# 第十二章 反应式持久化数据
+
+1. 反应式的编程，直到数据被subscribe之后，动作才会实际执行；比如save的时候，如果只是调用了save，实际上没有执行保存操作，需要subscribe该操作的返回值，动作才会实际执行；
+
+## cassandra
+
+**开发步骤：**
+
+1. docker 安装和运行cassandra：
+
+```shell
+## 拉取镜像
+docker pull cassandra:4.0.6
+
+## 创建容器
+docker run --name mycassandra -v /mydata/cassandra/datadir:/var/lib/cassandra -p 9042:9042 -d cassandra:4.0.6
+
+##进入容器
+docker exec -it mycassandra /bin/bash
+## 执行cqlsh:
+root@004b946a119e:/# cqlsh
+Connected to Test Cluster at 127.0.0.1:9042
+[cqlsh 6.0.0 | Cassandra 4.0.6 | CQL spec 3.4.5 | Native protocol v5]
+Use HELP for help.
+cqlsh> 
+```
+
+2. Spring Boot配置：
+
+添加依赖：
+
+```xml
+
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-data-cassandra-reactive</artifactId>
+</dependency>
+```
+
+添加配置文件配置：
+
+```yaml
+spring:
+  data:
+    cassandra:
+      local-datacenter: datacenter1
+      keyspace-name: tacocloud
+      contact-points:
+        - 192.168.61.130:9042
+      schema-action: recreate_drop_unused
+```
+
+3. 配置repository；
+
+**代码请求测试流程：**
+
+![](./pics/Snipaste_2022-09-13_13-45-03.png)
+
+遗留问题：
+
+1. webflux登陆之后，自动重定向到"/"路径？？
+2. http://localhost:8080/orders请求，如何获取到cassandra中的数据，如何编写repository查询？？

@@ -2,24 +2,20 @@ package io.itaiit.domain;
 
 import lombok.Data;
 import lombok.ToString;
-
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
 
 /**
  * @author itaiit
  * @date 2022/8/23 15:46
  */
 @Data
-@Entity
+@Table("ingredient")
 @ToString
 public class Ingredient {
-    @Id
+    @PrimaryKey
     private String id;
     private String name;
-    @Enumerated(EnumType.STRING)
     private Type type;
 
     public Ingredient() {

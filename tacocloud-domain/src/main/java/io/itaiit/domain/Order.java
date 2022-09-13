@@ -2,23 +2,31 @@
 //tag::allButValidation[]
 package io.itaiit.domain;
 
+import com.datastax.oss.driver.api.core.uuid.Uuids;
 import lombok.Data;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 
 @Data
+@Table("tacoorders")
 public class Order {
 
-    private Long id;
+    @PrimaryKey
+    private UUID id = Uuids.timeBased();
 
-    private Date placedAt;
+    private Date placedAt = new Date();
+    @Column("user")
+    private UserUDT user;
 
-    private User user;
-
-    private List<Taco> tacos = new ArrayList<>();
+    @Column("tacos")
+    private List<TacoUDT> tacos = new ArrayList<>();
 
     //end::allButValidation[]
     //tag::allButValidation[]
@@ -52,7 +60,7 @@ public class Order {
     //tag::allButValidation[]
     private String ccCVV;
 
-    public void addDesign(Taco taco) {
+    public void addDesign(TacoUDT taco) {
         this.tacos.add(taco);
     }
 

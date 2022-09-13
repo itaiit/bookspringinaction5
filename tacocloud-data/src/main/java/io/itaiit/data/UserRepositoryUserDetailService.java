@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 /**
  * @author itaiit
@@ -23,8 +24,8 @@ public class UserRepositoryUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User byUserName = userRepository.findByUsername(username);
+        Mono<User> byUserName = userRepository.findByUsername(username);
         log.info("byUserName: " + byUserName.toString());
-        return byUserName;
+        return byUserName.block();
     }
 }

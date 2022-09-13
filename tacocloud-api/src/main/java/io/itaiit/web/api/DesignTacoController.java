@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @Slf4j
 @RestController("restDesignTacoController")
 @RequestMapping(path = "/design",                      // <1>
@@ -35,24 +37,24 @@ public class DesignTacoController {
 
     @GetMapping("/recentreactive")
     public Flux<Taco> recentTacosReactive() {
-        return Flux.fromIterable(tacoRepo.findAll()).take(tacoPageProp.getSize());
+        return tacoRepo.findAll().take(tacoPageProp.getSize());
     }
 
     @PostMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<Taco> postTaco(@RequestBody Mono<Taco> taco) {
-        Taco save = tacoRepo.save(taco.block());
-        return Mono.just(save);
+    public Mono<Taco> postTaco(@RequestBody Taco taco) {
+
+        return tacoRepo.save(taco);
     }
 
     @GetMapping("/{id}")
-    public Mono<Taco> tacoById(@PathVariable("id") Long id) {
+    public Mono<Taco> tacoById(@PathVariable("id") UUID id) {
 //        Optional<Taco> optTaco = tacoRepo.findById(id);
 //        if (optTaco.isPresent()) {
 //            return new ResponseEntity<Taco>(optTaco.get(), HttpStatus.OK);
 //        }
 //        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        return Mono.just(tacoRepo.findById(id).get());
+        return tacoRepo.findById(id);
     }
 }
 

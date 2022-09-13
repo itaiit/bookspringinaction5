@@ -5,10 +5,12 @@ import io.itaiit.data.TacoRepository;
 import io.itaiit.domain.Ingredient;
 import io.itaiit.domain.Order;
 import io.itaiit.domain.Taco;
+import io.itaiit.domain.TacoUDT;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,7 +41,7 @@ public class DesignTacoController {
     public String addIngredientsToModel(Model model) {
 
         List<Ingredient> ingredients = new ArrayList<>();
-        ingredientRepository.findAll().forEach(item -> ingredients.add(item));
+        ingredientRepository.findAll().subscribe(item -> ingredients.add(item));
 
         Ingredient.Type[] types = Ingredient.Type.values();
         log.info("Ingredient types: " + Arrays.toString(types));
@@ -61,8 +63,13 @@ public class DesignTacoController {
     public String processDesign(Taco design, @ModelAttribute("order") Order order) {
         log.info("Processing design: " + design + "; order: " + order);
 
-        Taco save = tacoRepository.save(design);
-        order.addDesign(save);
+        Mono<Taco> save = tacoRepository.save(design);
+        TacoUDT tacoUDT = new TacoUDT();
+        save.subscribe(taco -> {
+            tacoUDT.setIngredients(taco.getIngredients());
+            tacoUDT.setName(taco.getName());
+        });
+        order.addDesign(tacoUDT);
 
         return "redirect:/orders/current";
     }

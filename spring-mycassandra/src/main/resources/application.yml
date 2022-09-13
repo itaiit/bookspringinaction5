@@ -1,0 +1,7 @@
+spring:
+  data:
+    cassandra:
+      contact-points:
+        - 192.168.61.130:9042
+      local-datacenter: datacenter1
+      keyspace-name: tacocloud

@@ -2,7 +2,9 @@ package io.itaiit.data;
 
 
 import io.itaiit.domain.Taco;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
-public interface TacoRepository extends PagingAndSortingRepository<Taco, Long> {
+import java.util.UUID;
+
+public interface TacoRepository extends ReactiveCrudRepository<Taco, UUID> {
 }
