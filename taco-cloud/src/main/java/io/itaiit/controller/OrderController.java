@@ -8,9 +8,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -52,10 +54,15 @@ public class OrderController {
     }
 
     @GetMapping
-    public String ordersForUser(@AuthenticationPrincipal User user, Model model) {
-        List<Order> orders = orderRepository.findByUserOrderByPlaceAtDesc(user);
-        model.addAttribute("orders", orders);
-        return "orderList";
+    public String ordersForUser(@AuthenticationPrincipal User user, Model model) throws IOException {
+        if (ObjectUtils.isEmpty(user)) {
+            return "redirect:/login";
+        } else {
+            String username = user.getUsername();
+            List<Order> orders = orderRepository.findByUsernameOrderByPlacedAtDesc(username);
+            model.addAttribute("orders", orders);
+            return "orderList";
+        }
     }
 
 }

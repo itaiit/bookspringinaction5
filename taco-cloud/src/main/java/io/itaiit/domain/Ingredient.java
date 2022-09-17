@@ -1,8 +1,8 @@
 package io.itaiit.domain;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -10,13 +10,17 @@ import java.util.Date;
  * @date 2022/8/23 15:46
  */
 @Data
-@RequiredArgsConstructor
+@Entity
 public class Ingredient {
-    private final String id;
-    private Date createAt;
-    private final String name;
-    private final Type type;
-    public static enum Type{
+    @Id
+    private String id;
+    @Transient
+    private Date createdAt = new Date();
+    private String name;
+    @Enumerated(EnumType.STRING)
+    private Type type;
+
+    public static enum Type {
         WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
     }
 

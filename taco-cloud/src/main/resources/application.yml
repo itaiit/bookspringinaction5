@@ -4,13 +4,22 @@ spring:
     url: jdbc:mysql://192.168.61.130:3307/springinaction
     username: root
     password: root
+  jpa:
+    database: mysql
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   sql:
     init:
       mode: never
 
+
 logging:
   level:
     org:
-      springframework:
-        security: debug
+      springframework: debug
     root: info
+taco:
+  size: 5
+  page: 0

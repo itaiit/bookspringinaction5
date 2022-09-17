@@ -4,57 +4,76 @@ package io.itaiit.domain;
 
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 
 @Data
+@Entity
+@Table(name = "Taco_Order")
 public class Order {
 
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  private Date placedAt;
+    private Date placedAt;
 
-  private User user;
+    @PrePersist
+    private void prePersist() {
+        this.placedAt = new Date();
+    }
 
-  private List<Taco> tacos = new ArrayList<>();
+    @Transient
+    private User user;
 
-  //end::allButValidation[]
-  //tag::allButValidation[]
-  private String name;
-  //end::allButValidation[]
+    private String username;
 
-  //tag::allButValidation[]
-  private String street;
-  //end::allButValidation[]
+    public void setUser(User user) {
+        this.user = user;
+        this.username = user.getUsername();
+    }
 
-  //tag::allButValidation[]
-  private String city;
-  //end::allButValidation[]
+    @Transient
+    private List<Taco> tacos = new ArrayList<>();
 
-  //tag::allButValidation[]
-  private String state;
-  //end::allButValidation[]
+    //end::allButValidation[]
+    //tag::allButValidation[]
+    private String name;
+    //end::allButValidation[]
 
-  //tag::allButValidation[]
-  private String zip;
-  //end::allButValidation[]
+    //tag::allButValidation[]
+    private String street;
+    //end::allButValidation[]
 
-  //tag::allButValidation[]
-  private String ccNumber;
-  //end::allButValidation[]
+    //tag::allButValidation[]
+    private String city;
+    //end::allButValidation[]
 
-  //tag::allButValidation[]
-  private String ccExpiration;
-  //end::allButValidation[]
+    //tag::allButValidation[]
+    private String state;
+    //end::allButValidation[]
 
-  //tag::allButValidation[]
-  private String ccCVV;
+    //tag::allButValidation[]
+    private String zip;
+    //end::allButValidation[]
 
-  public void addDesign(Taco taco) {
-    this.tacos.add(taco);
-  }
+    //tag::allButValidation[]
+    private String ccNumber;
+    //end::allButValidation[]
+
+    //tag::allButValidation[]
+    private String ccExpiration;
+    //end::allButValidation[]
+
+    //tag::allButValidation[]
+    private String ccCVV;
+
+    public void addDesign(Taco taco) {
+        this.tacos.add(taco);
+    }
 
 }
 //end::allButValidation[]

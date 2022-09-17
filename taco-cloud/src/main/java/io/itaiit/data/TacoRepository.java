@@ -2,9 +2,9 @@ package io.itaiit.data;
 
 
 import io.itaiit.domain.Taco;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface TacoRepository {
+public interface TacoRepository extends PagingAndSortingRepository<Taco, Long> {
 
-  Taco save(Taco design);
 
 }
