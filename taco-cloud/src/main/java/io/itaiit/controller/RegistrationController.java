@@ -1,7 +1,6 @@
 package io.itaiit.controller;
 
 import io.itaiit.data.UserRepository;
-import io.itaiit.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -27,7 +26,7 @@ public class RegistrationController {
 
     @PostMapping
     public String processRegistration(RegistrationForm form) {
-        User save = userRepository.save(form.toUser(NoOpPasswordEncoder.getInstance()));
+        userRepository.save(form.toUser(NoOpPasswordEncoder.getInstance()));
         return "redirect:/login";
     }
 
